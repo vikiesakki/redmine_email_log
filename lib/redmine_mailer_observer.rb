@@ -1,4 +1,4 @@
-module ThatMailerObserver
+module RedmineMailerObserver
 
     def self.delivered_email(mail)
         log = Maillog.build_from_mail(mail)

@@ -1,7 +1,5 @@
 require 'redmine'
-
-require_dependency 'that_hook'
-
+$LOAD_PATH.unshift "#{File.dirname(__FILE__)}/lib/"
 Rails.logger.info 'Starting That Email Log plugin for Redmine'
 
 Rails.configuration.to_prepare do
@@ -22,13 +20,12 @@ Rails.configuration.to_prepare do
     end
 end
 
-Redmine::Plugin.register :that_email_log do
-    name 'That Email Log'
-    author 'Andriy Lesyuk for That Company'
-    author_url 'http://www.andriylesyuk.com/'
+Redmine::Plugin.register :redmine_email_log do
+    name 'Redmine Email Log'
+    author 'Vignesh Esakki Muthu'
     description 'Enables logging of all outgoing email messages that are sent by Redmine.'
-    url 'https://github.com/thatcompany/that_email_log'
-    version '0.0.4'
+    version '0.0.1'
+    url 'https://redmineconsultation.com'
 
     menu :admin_menu, :email_logs, :email_logs_path, :html => { :class => 'icon icon-email-logs' }, :before => :info
 
@@ -38,4 +35,4 @@ Redmine::Plugin.register :that_email_log do
     }, :partial => 'settings/email_log'
 end
 
-ActionMailer::Base.register_observer(ThatMailerObserver)
+ActionMailer::Base.register_observer(RedmineMailerObserver)
