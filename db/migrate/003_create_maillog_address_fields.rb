@@ -1,13 +1,15 @@
 class CreateMaillogAddressFields < Rails::VERSION::MAJOR < 5 ? ActiveRecord::Migration : ActiveRecord::Migration[4.2]
 
     def self.up
-        create_table :maillog_address_fields do |t|
-            t.column :field,      :string,   :null => false
-            t.column :maillog_id, :integer,  :null => false
-            t.column :address_id, :integer,  :null => false
-            t.column :created_on, :datetime, :null => false
+        unless table_exists?(:maillog_address_fields)
+            create_table :maillog_address_fields do |t|
+                t.column :field,      :string,   :null => false
+                t.column :maillog_id, :integer,  :null => false
+                t.column :address_id, :integer,  :null => false
+                t.column :created_on, :datetime, :null => false
+            end
+            add_index :maillog_address_fields, :maillog_id, :name => :maillog_address_fields_maillog_id
         end
-        add_index :maillog_address_fields, :maillog_id, :name => :maillog_address_fields_maillog_id
     end
 
     def self.down

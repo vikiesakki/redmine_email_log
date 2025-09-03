@@ -1,7 +1,9 @@
 class AddMaillogsOpenedOn < Rails::VERSION::MAJOR < 5 ? ActiveRecord::Migration : ActiveRecord::Migration[4.2]
 
     def self.up
-        add_column :maillogs, :opened_on, :datetime
+        unless column_exists?(:maillogs, :opened_on)
+            add_column :maillogs, :opened_on, :datetime
+        end
 
         if column_exists?(:maillogs, :opened, :boolean)
             remove_column :maillogs, :opened
